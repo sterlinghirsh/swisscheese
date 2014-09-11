@@ -1,0 +1,69 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  form#settings
+    label Max Tables: 
+      input#maxTables(type="number" min="1" ng-model="maxTables")
+    br
+    label Max Per Table:
+      input#maxPerTable(type="number" min="{{minPerTable}}" ng-model="maxPerTable")
+    br
+    label Min Per Table:
+      input#minPerTable(type="number" min="2" max="{{maxPerTable}}" ng-model="minPerTable")
+    br
+    label Target Per Table:
+      input#targetPerTable(type="number" min="{{minPerTable}}" max="{{maxPerTable}}" ng-model="targetPerTable")
+    br
+    input#newPlayerName(ng-model="newPlayerName" placeholder="New Player Name")
+    button#addPlayer(ng-click="addPlayer()") Add Player
+
+    h3 {{players.length}} Player(s)
+    table
+      tr
+        th Name
+        th Score
+        th Active
+        th Date Added
+        th Edit
+      tr(ng-repeat="player in players")
+        td {{player.name}}
+        td {{player.score}}
+        td {{player.active ? 'Yes' : 'No'}}
+        td {{player.dateAdded | date:'short'}}
+        td
+          a(ng-click="editPlayer(player)") Edit
+
+  // TODO: Put this in a modal
+  form#editPlayer
+    h3 Edit
+    label Name
+      input(ng-model="curEditPlayer.name")
+    label Score
+      input(ng-model="curEditPlayer.score")
+    label Active
+      input(type="checkbox" ng-model="curEditPlayer.active")
+
+    
+  h3 {{curRound.tables.length}} Table(s)
+  table
+    tr
+      th Name
+      th Score
+      th Active
+      th Date Added
+      th Edit
+    tbody(ng-repeat="table in curRound.tables")
+      tr(colspan="5") Table {{$index + 1}}
+      tr(ng-repeat="player in table.players")
+        td {{player.name}}
+        td {{player.score}}
+        td {{player.active ? 'Yes' : 'No'}}
+        td {{player.dateAdded | date:'short'}}
+        td
+          a(ng-click="editPlayer(player)") Edit
+
+
+    

@@ -1,0 +1,15 @@
+doctype html
+html(ng-app='swisscheese', lang='en')
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UI-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body(ng-controller='swisscheeseController')
+    block content
+
+    script(src='/javascripts/jquery-1.11.1.min.js')
+    script(src='/javascripts/angular.min.js')
+    script(src='/javascripts/index.js')
